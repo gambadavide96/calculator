@@ -14,11 +14,11 @@ body {
 .iphone {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
 
-  margin-top: 35px;
+  margin-top: 20px;
   width: 400px;
-  height: 700px;
+  height: 730px;
   border-radius: 25px;
 
   background: linear-gradient(to bottom, #1C1C1C, #000000); /* lato più scuro sotto */
@@ -27,8 +27,18 @@ body {
 }
 
 .display {
-  flex: 4; 
+  flex: 4;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  font-size: 68px;
+  padding-right: 15px;
+  color: white;
+   
 }
+
 
 .keyboard {
   flex: 7.5;
@@ -61,6 +71,11 @@ body {
   display: inline-flex; 
   justify-content: center;
   align-items: center;  
+}
+
+.row button:active {
+  transition: linear 0.05s;
+  opacity: 50%;
 }
 
  .row button.top-left{
@@ -106,8 +121,5 @@ body {
   transform: scale(0.95); /* effetto pressione */
 }
 
-.display {
-  border: solid 1px gray;
-}
 
 
