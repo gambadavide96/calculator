@@ -16,9 +16,9 @@ body {
   flex-direction: column;
   gap: 7px;
 
-  margin-top: 20px;
-  width: 400px;
-  height: 730px;
+  margin-top: 15px;
+  width: 405px;
+  height: 750px;
   border-radius: 25px;
 
   background: linear-gradient(to bottom, #1C1C1C, #000000); /* lato più scuro sotto */
@@ -33,7 +33,7 @@ body {
   justify-content: flex-end;
   align-items: flex-end;
 
-  font-size: 68px;
+  font-size: 60px;
   padding-right: 15px;
   color: white;
    
@@ -58,8 +58,8 @@ body {
 }
 
 .row button {
-  width: 75px;
-  height: 75px;
+  width: 78px;
+  height: 78px;
   border-radius: 50%;
   border: none;
   font-size: 36px;
