@@ -1,6 +1,5 @@
 
 const display = document.querySelector(".display-text")
-let numDigits = 0; //count numDigits in the expressions (max 12)
 
 let input1;
 let operator;
@@ -26,11 +25,8 @@ const addDigit = function(digit) {
     return
   }
 
-  if(numDigits < 12){
-    display.textContent += digit;
-    numDigits += 1;
-    addSeparator();
-  }
+  display.textContent += digit;
+  addSeparator();
 }
 
 //Per gestire i calcoli, devo mettere . come separatore dei decimali
@@ -59,7 +55,10 @@ const divide = (num1,num2) => num1 / num2;
 const changeSign = (num) => num * (-1);
 
 //Unica operazione con un solo operando, la gestisco a parte
-const percentage = (input) => display.textContent = getOutputByNum(getNumByInput(input) / 100);
+const percentage = (input) => {
+  let result = getNumByInput(input) / 100;
+  display.textContent = getOutputByNum(result);
+}
 
 const operate = (in1,op,in2) => {
 
@@ -89,9 +88,7 @@ const operate = (in1,op,in2) => {
 }
 
 const btn0 = document.querySelector("#digit-0");
-btn0.addEventListener("click",() => {
-  addDigit("0");
-});
+btn0.addEventListener("click",() => addDigit("0"));
 
 const btn1 = document.querySelector("#digit-1");
 btn1.addEventListener("click",() => addDigit("1"));
@@ -123,8 +120,6 @@ btn9.addEventListener("click",() => addDigit("9"));
 const btnClear = document.querySelector("#clear");
 btnClear.addEventListener("click", () => {
   display.textContent = '0'
-  numDigits = 1;
-  countOperator = 0;
 })
 
 const btnChangeSign = document.querySelector("#changeSign");
