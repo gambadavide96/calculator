@@ -2,6 +2,11 @@
 const display = document.querySelector(".display-text")
 let numDigits = 0; //count numDigits in the expressions (max 12)
 
+let input1;
+let operator;
+let input2;
+let countOperator = 1;
+
 //Adding . as separator like iOS calculator
 const addSeparator = () => {
   let cleaned = display.textContent.replace(/\./g, ""); // clean the string from .
@@ -12,7 +17,6 @@ const addSeparator = () => {
 
 const addDigit = function(digit) {
 
-  //Gestisco il caso in cui era stato inserito uno zero iniziale
   if(display.textContent === "0"){
     display.textContent = digit;
     return
@@ -25,6 +29,56 @@ const addDigit = function(digit) {
   }
 }
 
+//Per gestire i calcoli, devo mettere . come separtore dei decimali
+const getNumByInput = (input) => {
+  let cleaned = input.replace(/\./g, ""); //clean the string from .
+  cleaned = cleaned.replace(/\,/g,".");   //subsituing , with .
+  return parseFloat(cleaned);
+}
+
+//Riconverto il risultato nel formato da display
+const getOutputByNum = (output) => {
+  output = output.toString()
+  let [intPart, decPart] = output.split("."); // split integer from decimal part
+  intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, "."); // adding separator
+  return decPart ? `${intPart},${decPart}` : intPart; //recombining string
+}
+
+const add = (num1,num2) => num1 + num2;
+
+const subtract = (num1,num2) => num1 - num2;
+
+const multiply = (num1, num2) => num1 * num2;
+
+const divide = (num1,num2) => num1 / num2;
+
+const changeSign = (num) => num * (-1);
+
+const percentage = (input) => display.textContent = getOutputByNum(getNumByInput(input) / 100);
+
+const operate = (in1,op,in2) => {
+
+  let num1 = parseInt(in1);
+  let num2 = parseInt(in2);
+
+  switch(op) {
+    case "+":
+      display.textContent = add(num1,num2);
+      break;
+    case "-":
+      display.textContent = subtract(num1,num2);
+      break;
+    case "*":
+      display.textContent = multiply(num1,num2);
+      break;
+    case "/":
+      display.textContent = divide(num1,num2);
+      break;
+    default:
+      console.log("Please insert a valid symbol.")
+  }
+
+}
 
 const btn0 = document.querySelector("#digit-0");
 btn0.addEventListener("click",() => {
@@ -63,8 +117,9 @@ btn9.addEventListener("click",() => addDigit("9"));
 
 const btnClear = document.querySelector("#clear");
 btnClear.addEventListener("click", () => {
-  display.textContent = ''
-  numDigits = 0;
+  display.textContent = '0'
+  numDigits = 1;
+  countOperator = 0;
 })
 
 const btnChangeSign = document.querySelector("#changeSign");
@@ -75,44 +130,32 @@ btnChangeSign.addEventListener("click", () => {
   else
     arr.splice(0,1);
   display.textContent = arr.join('');
-})
+});
 
+const btnComma = document.querySelector("#comma");
+btnComma.addEventListener("click", () => {
+  if(display.textContent.includes(","))
+    return
+  display.textContent += ",";
+});
 
-let num1;
-let operator;
-let num2;
+const btnAdd = document.getElementById("add");
+btnAdd.addEventListener("click",() => alert("prova"))
 
-const add = (num1,num2) => num1 + num2;
+const btnSub = document.getElementById("sub");
+btnSub.addEventListener("click",() => alert("prova"))
 
-const subtract = (num1,num2) => num1 - num2;
+const btnMult = document.getElementById("multiply");
+btnMult.addEventListener("click",() => alert("prova"))
 
-const multiply = (num1, num2) => num1 * num2;
+const btnDivide = document.getElementById("divide");
+btnDivide.addEventListener("click",() => alert("prova"))
 
-const divide = (num1,num2) => num1 / num2;
+const btnPercentage = document.getElementById("percentage")
+btnPercentage.addEventListener("click", () => percentage(display.textContent))
 
-const percentage = (num) => num / 100;
+const btnResult = document.getElementById("result");
+btnResult.addEventListener("click",() => alert("prova"))
 
-const changeSign = (num) => num * (-1);
-
-const operate = (n1,op,n2) => {
-
-  switch(op) {
-    case "+":
-      add(n1,n2);
-      break;
-    case "-":
-      subtract(n1,n2);
-      break;
-    case "*":
-      multiply(n1,n2);
-      break;
-    case "/":
-      divide(n1,n2);
-      break;
-    default:
-      console.log("Please insert a valid symbol.")
-  }
-
-}
 
 

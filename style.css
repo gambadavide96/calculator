@@ -20,10 +20,15 @@ body {
   width: 385px;
   height: 750px;
   border-radius: 25px;
-
   background: linear-gradient(to bottom, #1C1C1C, #000000); /* lato più scuro sotto */
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
-  border: solid 1px #1C1C1C;
+
+  border: 2px solid #333;
+  box-shadow: 
+    inset 0 1px 2px rgba(255,255,255,0.1),  /* Highlight interno */
+    inset 0 -1px 2px rgba(0,0,0,0.5),       /* Ombra interna */
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .display {
@@ -82,7 +87,6 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-
 }
 
 .row button {
@@ -94,6 +98,8 @@ body {
   font-weight: normal;
   cursor: pointer;
   color: white;
+  transition: opacity 0.1s linear;
+  transition: background-color 0.1s linear;
 
   /* Per centrare il simbolo */
   display: inline-flex; 
@@ -101,9 +107,9 @@ body {
   align-items: center;  
 }
 
-.row button:active {
-  transition: linear 0.05s;
-  opacity: 50%;
+.iphone .row button:active {
+  opacity: 40%;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.195); 
 }
 
  .row button.top-left{
