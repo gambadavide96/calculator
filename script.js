@@ -1,6 +1,6 @@
 
-const display = document.querySelector(".display")
-let numDigits = 0; //count numDigits in the expressions (max 9)
+const display = document.querySelector(".display-text")
+let numDigits = 0; //count numDigits in the expressions (max 12)
 
 //Adding . as separator like iOS calculator
 const addSeparator = () => {
@@ -18,7 +18,7 @@ const addDigit = function(digit) {
     return
   }
 
-  if(numDigits < 10){
+  if(numDigits < 12){
     display.textContent += digit;
     numDigits += 1;
     addSeparator();
