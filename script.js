@@ -5,7 +5,6 @@ let numDigits = 0; //count numDigits in the expressions (max 12)
 let input1;
 let operator;
 let input2;
-let countOperator = 1;
 
 //Adding . as separator like iOS calculator
 const addSeparator = () => {
@@ -22,6 +21,11 @@ const addDigit = function(digit) {
     return
   }
 
+  if(display.textContent === "-0"){
+    display.textContent = "-".concat(digit);
+    return
+  }
+
   if(numDigits < 12){
     display.textContent += digit;
     numDigits += 1;
@@ -29,7 +33,7 @@ const addDigit = function(digit) {
   }
 }
 
-//Per gestire i calcoli, devo mettere . come separtore dei decimali
+//Per gestire i calcoli, devo mettere . come separatore dei decimali
 const getNumByInput = (input) => {
   let cleaned = input.replace(/\./g, ""); //clean the string from .
   cleaned = cleaned.replace(/\,/g,".");   //subsituing , with .
@@ -54,37 +58,38 @@ const divide = (num1,num2) => num1 / num2;
 
 const changeSign = (num) => num * (-1);
 
+//Unica operazione con un solo operando, la gestisco a parte
 const percentage = (input) => display.textContent = getOutputByNum(getNumByInput(input) / 100);
 
 const operate = (in1,op,in2) => {
 
-  let num1 = parseInt(in1);
-  let num2 = parseInt(in2);
+  let num1 = getNumByInput(in1);
+  let num2 = getNumByInput(in2);
+  let result;
 
   switch(op) {
     case "+":
-      display.textContent = add(num1,num2);
+      result = add(num1,num2);
       break;
     case "-":
-      display.textContent = subtract(num1,num2);
+      result = subtract(num1,num2);
       break;
     case "*":
-      display.textContent = multiply(num1,num2);
+      result = multiply(num1,num2);
       break;
     case "/":
-      display.textContent = divide(num1,num2);
+      result = divide(num1,num2);
       break;
     default:
       console.log("Please insert a valid symbol.")
   }
 
+  return getOutputByNum(result);
+
 }
 
 const btn0 = document.querySelector("#digit-0");
 btn0.addEventListener("click",() => {
-  //Per evitare di inserire zero ripetuti all'inizio
-  if (display.textContent === "0")
-    return
   addDigit("0");
 });
 
