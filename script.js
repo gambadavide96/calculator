@@ -69,7 +69,7 @@ const divide = (num1,num2) => {
 //Operazione con operando singolo, la gestisco a parte
 const percentage = (input) => {
   let result = getNumByInput(input) / 100;
-  display.textContent = getOutputByNum(result);
+  display.textContent = getOutputByNum(roundResult(result));
   shouldResetScreen = true;
 }
 
@@ -108,9 +108,13 @@ const evaluate = () => {
   secondOperand = display.textContent;
   display.textContent = operate(firstOperand,currentOperator,secondOperand);
 
+  //Resetto gli operandi ed operatore
   currentOperator = null;
   firstOperand = undefined;
   secondOperand = undefined;
+  //A testo c'è ancora un numero, se premo un operando lo valuterò come firstOperand
+  //Imposto shouldresetScreen nel caso voglia digitare un nuovo numero 
+  shouldResetScreen = true;
 
 }
 
