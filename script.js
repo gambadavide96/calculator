@@ -1,5 +1,6 @@
 
 const display = document.querySelector(".display-text")
+let shouldResetScreen = false;
 
 //Adding . as separator like iOS calculator
 const addSeparator = () => {
@@ -11,6 +12,12 @@ const addSeparator = () => {
 
 //Adding a digit in expression
 const addDigit = function(digit) {
+
+  //To insert the second operator
+  if(shouldResetScreen) {
+    display.textContent = ''
+    shouldResetScreen = false;
+  }
 
   if(display.textContent === "0"){
     display.textContent = digit;
@@ -43,9 +50,8 @@ const getOutputByNum = (output) => {
 
 
 let firstOperand = undefined;
-let operator = undefined;
 let secondOperand = undefined;
-let currentExpression = '';
+let currentOperator = null;
 
 const add = (num1,num2) => num1 + num2;
 
@@ -60,39 +66,62 @@ const divide = (num1,num2) => {
   return num1 / num2;
 }
 
+//Operazione con operando singolo, la gestisco a parte
 const percentage = (input) => {
   let result = getNumByInput(input) / 100;
   display.textContent = getOutputByNum(result);
+  shouldResetScreen = true;
 }
 
-const setOperator = () => {
-  return
-}
+const operate = (firstOp,operator,secondOp) => {
 
-const operate = (in1,op,in2) => {
-
-  let num1 = getNumByInput(in1);
-  let num2 = getNumByInput(in2);
+  let num1 = getNumByInput(firstOp);
+  let num2 = getNumByInput(secondOp);
   let result;
 
-  switch(op) {
+  switch(operator) {
     case "+":
       result = add(num1,num2);
       break;
     case "-":
       result = subtract(num1,num2);
       break;
-    case "*":
+    case "x":
       result = multiply(num1,num2);
       break;
-    case "/":
+    case "÷":
       result = divide(num1,num2);
       break;
     default:
-      console.log("Please insert a valid symbol.")
+      return null;
   }
 
-  return getOutputByNum(result);
+  return getOutputByNum(roundResult(result));
+
+}
+
+const evaluate = () => {
+  //Devo ancora inserire uno dei due operandi
+  if(shouldResetScreen || firstOperand === undefined)
+    return
+
+  secondOperand = display.textContent;
+  display.textContent = operate(firstOperand,currentOperator,secondOperand);
+
+  currentOperator = null;
+  firstOperand = undefined;
+  secondOperand = undefined;
+
+}
+
+const setOperator = (operator) => {
+  //Se avevo già inserito un operatore, lancio la valutazione
+  if (currentOperator !== null) 
+    evaluate()
+
+  firstOperand = display.textContent;
+  currentOperator = operator;
+  shouldResetScreen = true;
 
 }
 
@@ -103,7 +132,7 @@ btnNumbers.forEach((btnNumber) => {
 
 const btnOperators = document.querySelectorAll('.operator');
 btnOperators.forEach((btnOperator) => {
-  btnOperator.addEventListener("click", () => setOperator())
+  btnOperator.addEventListener("click", () => setOperator(btnOperator.textContent))
 })
 
 const btnClear = document.querySelector("#clear");
@@ -111,10 +140,11 @@ btnClear.addEventListener("click", () => {
   display.textContent = '0'
   firstOperand = undefined;
   secondOperand = undefined;
-  operator = undefined;
+  currentOperator = null;
+  shouldResetScreen = false;
 })
 
-const btnChangeSign = document.querySelector("#changeSign");
+const btnChangeSign = document.querySelector("#change-sign");
 btnChangeSign.addEventListener("click", () => {
   let arr = display.textContent.split('');
   if (!arr.includes("-"))
@@ -133,6 +163,13 @@ btnComma.addEventListener("click", () => {
 
 const btnPercentage = document.getElementById("percentage")
 btnPercentage.addEventListener("click", () => percentage(display.textContent))
+
+const btnResult = document.getElementById("equal-sign");
+btnResult.addEventListener("click", evaluate)
+
+function roundResult(number) {
+  return Math.round(number * 1000) / 1000
+}
 
 
 
