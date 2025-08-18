@@ -1,10 +1,6 @@
 
 const display = document.querySelector(".display-text")
 
-let input1;
-let operator;
-let input2;
-
 //Adding . as separator like iOS calculator
 const addSeparator = () => {
   let cleaned = display.textContent.replace(/\./g, ""); // clean the string from .
@@ -13,6 +9,7 @@ const addSeparator = () => {
   display.textContent = decPart ? `${intPart},${decPart}` : intPart; //recombining string
 }
 
+//Adding a digit in expression
 const addDigit = function(digit) {
 
   if(display.textContent === "0"){
@@ -44,20 +41,32 @@ const getOutputByNum = (output) => {
   return decPart ? `${intPart},${decPart}` : intPart; //recombining string
 }
 
+
+let firstOperand = undefined;
+let operator = undefined;
+let secondOperand = undefined;
+let currentExpression = '';
+
 const add = (num1,num2) => num1 + num2;
 
 const subtract = (num1,num2) => num1 - num2;
 
 const multiply = (num1, num2) => num1 * num2;
 
-const divide = (num1,num2) => num1 / num2;
+const divide = (num1,num2) => {
+  if(num2 === 0)
+    return NaN
 
-const changeSign = (num) => num * (-1);
+  return num1 / num2;
+}
 
-//Unica operazione con un solo operando, la gestisco a parte
 const percentage = (input) => {
   let result = getNumByInput(input) / 100;
   display.textContent = getOutputByNum(result);
+}
+
+const setOperator = () => {
+  return
 }
 
 const operate = (in1,op,in2) => {
@@ -87,39 +96,22 @@ const operate = (in1,op,in2) => {
 
 }
 
-const btn0 = document.querySelector("#digit-0");
-btn0.addEventListener("click",() => addDigit("0"));
+const btnNumbers = document.querySelectorAll('.number');
+btnNumbers.forEach((btnNumber) => {
+  btnNumber.addEventListener("click", () => addDigit(btnNumber.textContent))
+})
 
-const btn1 = document.querySelector("#digit-1");
-btn1.addEventListener("click",() => addDigit("1"));
-
-const btn2 = document.querySelector("#digit-2");
-btn2.addEventListener("click",() => addDigit("2"));
-
-const btn3 = document.querySelector("#digit-3");
-btn3.addEventListener("click",() => addDigit("3"));
-
-const btn4 = document.querySelector("#digit-4");
-btn4.addEventListener("click",() => addDigit("4"));
-
-const btn5 = document.querySelector("#digit-5");
-btn5.addEventListener("click",() => addDigit("5"));
-
-const btn6 = document.querySelector("#digit-6");
-btn6.addEventListener("click",() => addDigit("6"));
-
-const btn7 = document.querySelector("#digit-7");
-btn7.addEventListener("click",() => addDigit("7"));
-
-const btn8 = document.querySelector("#digit-8");
-btn8.addEventListener("click",() => addDigit("8"));
-
-const btn9 = document.querySelector("#digit-9");
-btn9.addEventListener("click",() => addDigit("9"));
+const btnOperators = document.querySelectorAll('.operator');
+btnOperators.forEach((btnOperator) => {
+  btnOperator.addEventListener("click", () => setOperator())
+})
 
 const btnClear = document.querySelector("#clear");
 btnClear.addEventListener("click", () => {
   display.textContent = '0'
+  firstOperand = undefined;
+  secondOperand = undefined;
+  operator = undefined;
 })
 
 const btnChangeSign = document.querySelector("#changeSign");
@@ -139,23 +131,9 @@ btnComma.addEventListener("click", () => {
   display.textContent += ",";
 });
 
-const btnAdd = document.getElementById("add");
-btnAdd.addEventListener("click",() => alert("prova"))
-
-const btnSub = document.getElementById("sub");
-btnSub.addEventListener("click",() => alert("prova"))
-
-const btnMult = document.getElementById("multiply");
-btnMult.addEventListener("click",() => alert("prova"))
-
-const btnDivide = document.getElementById("divide");
-btnDivide.addEventListener("click",() => alert("prova"))
-
 const btnPercentage = document.getElementById("percentage")
 btnPercentage.addEventListener("click", () => percentage(display.textContent))
 
-const btnResult = document.getElementById("result");
-btnResult.addEventListener("click",() => alert("prova"))
 
 
 
