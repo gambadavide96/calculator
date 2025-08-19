@@ -7,8 +7,11 @@
 
 body {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   background-color: #D4D4D2;
+  gap: 5px;
 }
 
 .iphone {
@@ -155,5 +158,32 @@ body {
   transform: scale(0.95); /* effetto pressione */
 }
 
+.credits {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+
+  padding: 10px;
+  font-size: 20px;
+}
+
+.github-logo {
+  display: block;
+  max-width: 28px;
+  max-height: 28px;
+  /*gestisce la transizione per la proprietà transform; la durata della transizione è di 0,3 secondi;la velocità di cambiamento non è costante: parte lenta, accelera al centro e rallenta di nuovo alla fine. */
+  transition: transform 0.3s ease-in-out;
+}
+
+/*ruota l’elemento di 360 gradi 
+.scale(1.2)ingrandisce l’elemento del 20% rispetto alla sua dimensione originale*/
+.github-logo:hover {
+  transform: rotate(360deg) scale(1.2); 
+}
 
 
