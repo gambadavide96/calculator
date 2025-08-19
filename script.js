@@ -59,17 +59,12 @@ const subtract = (num1,num2) => num1 - num2;
 
 const multiply = (num1, num2) => num1 * num2;
 
-const divide = (num1,num2) => {
-  if(num2 === 0)
-    return NaN
-
-  return num1 / num2;
-}
+const divide = (num1,num2) =>  num1 / num2;
 
 //Operazione con operando singolo, la gestisco a parte
 const percentage = (input) => {
   let result = getNumByInput(input) / 100;
-  display.textContent = getOutputByNum(roundResult(result));
+  display.textContent = getOutputByNum(result);
   shouldResetScreen = true;
 }
 
@@ -90,6 +85,11 @@ const operate = (firstOp,operator,secondOp) => {
       result = multiply(num1,num2);
       break;
     case "÷":
+      if(num2 === 0){
+        alert("You can't divide by zero")
+        result = 0;
+        break; 
+      }
       result = divide(num1,num2);
       break;
     default:
