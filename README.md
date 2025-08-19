@@ -4,11 +4,13 @@ An on-screen calculator built using **JavaScript**, **HTML**, and **CSS**, desig
 This project focuses on practices with HTML, CSS and Javascript.
 It was developed as part of **[The Odin Project](https://www.theodinproject.com/)** curriculum.
 
+👉**[Try here](https://gambadavide96.github.io/calculator/)**
+
 ## ✨ Features
 
 * **iOS-like design** for a familiar and modern look.
 * **Basic arithmetic operations**: addition, subtraction, multiplication, division and percentage.
-* **Clear function** 
+* **Clear function**: in order to restart and insert a new operand.  
 
 ## 🛠️ Technologies Used
 

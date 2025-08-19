@@ -53,7 +53,7 @@ body {
 .display-text {
   white-space: nowrap; /* Obbligo il testo a non andare a capo*/
   text-align: right;
-  width: 100%;  /* Occupa tutta la larghezza iniziale disponibile */
+  width: 100%;  /* Occupa tutta la larghezza iniziale disponibile (tutto il contenitore padre) */
   min-width: fit-content; /* Si espande oltre il 100% quando necessario */
 }
 
