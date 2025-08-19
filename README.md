@@ -4,7 +4,7 @@ An on-screen calculator built using **JavaScript**, **HTML**, and **CSS**, desig
 This project focuses on practices with HTML, CSS and Javascript.
 It was developed as part of **[The Odin Project](https://www.theodinproject.com/)** curriculum.
 
-## 👉[Try here](https://gambadavide96.github.io/calculator/)
+👉 **[Try here](https://gambadavide96.github.io/calculator/)**.
 
 ## ✨ Features
 
